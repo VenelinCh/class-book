@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head"></head>
+<body>
+<header th:replace="fragments :: header"></header>
+<h4>Register Teacher</h4>
+<div class="col-6">
+    <form action="#" th:action="@{/teachers/create}" th:object="${teacher}" method="post">
+        <div class="form-group">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input class="form-control" type="text" th:field="*{name}" placeholder="Name" id="name">
+                <span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</span>
+            </div>
+            <div class="form-group">
+                <div class="form-group">
+                    <label for="lastName">Last name</label>
+                    <input class="form-control" type="text" th:field="*{lastName}" placeholder="Kast name" id="lastName">
+                    <span class="text-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Last name Error</span>
+                </div>
+<!--            <div class="form-group">-->
+<!--                <label for="position">Position</label>-->
+<!--                <select class="form-control" th:field="${teacher.position}" id="position">-->
+<!--                    <option value="">Select Position</option>-->
+<!--                    <option th:each="position : ${positions}" th:value="${position.id}"-->
+<!--                            th:text="${position}"></option>-->
+<!--                </select>-->
+<!--            </div>-->
+<!--            <div class="form-group">-->
+<!--                <label for="workNumber">Work Number</label>-->
+<!--                <input class="form-control" type="text" th:field="*{workNumber}"-->
+<!--                       placeholder="workNumber" id="workNumber">-->
+<!--                <span class="text-danger" th:if="${#fields.hasErrors('workNumber')}"-->
+<!--                      th:errors="*{workNumber}">Work Number Error</span>-->
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Save Teacher</button>
+    </form>
+</div>
+<footer th:replace="fragments :: footer"></footer>
+</body>
+</html>

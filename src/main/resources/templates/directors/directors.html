@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head"></head>
+<body>
+<header th:replace="fragments :: header"></header>
+<h4 th:if="${directors.size()>0}" th:text="'directors: ' + ${directors.size()}"> </h4>
+<h3 th:unless="${directors} and ${directors.size()}">There are no directors!</h3>
+<table th:if="${directors.size()>0}" calss="table table-hover">
+    <th>Id</th>
+    <th>Name</th>
+    <th>School</th>
+    <th>Director since</th>
+    <th>Edit</th>
+    <th>Delete</th>
+    <tr th:each="director : ${directors}">
+        <td th:text="${director.getId}"></td>
+        <td th:text="${director.getName} + ' '+ ${director.getLastName}"></td>
+        <td th:text="${director.getSchoolName}"></td>
+        <td th:text="${director.directorSince}"></td>
+        <td><a class="btn btn-info" th:href="@{'/directors/edit/'+ ${director.getId} }">Edit</a></td>
+        <td><a class="btn btn-danger" th:href="@{'/directors/delete/'+ ${director.getId} }">Delete</a></td>
+
+    </tr>
+
+</table>
+
+<footer th:replace="fragments :: footer"></footer>
+</body>
+</html>

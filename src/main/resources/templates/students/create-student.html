@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head"></head>
+<body>
+<header th:replace="fragments :: header"></header>
+<h4>Register the Student</h4>
+<div class="col-6">
+    <form action="#" th:action="@{/students/create}" th:object="${student}" method="post">
+        <div class="form-group">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input class="form-control" type="text" th:field="*{name}" placeholder="Name" id="name">
+                <span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</span>
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last name</label>
+                <input class="form-control" type="text" th:field="*{lastName}"
+                       placeholder="Last name" id="lastName">
+                <span class="text-danger" th:if="${#fields.hasErrors('lastName')}"
+                      th:errors="*{lastName}">Last name Error</span>
+            </div>
+
+            <div class="form-group">
+                <label for="grade">Grade</label>
+                <select class="form-control" th:field="${student.grade}" id="grade">
+<!--                    <option value="">Select grade</option>-->
+                    <option th:each="grade : ${grades}" th:value="${grade.id}"
+                            th:text="${grade.number} + ' ' + ${grade.label}"></option>
+                </select>
+            </div>
+
+
+        </div>
+        <button type="submit" class="btn btn-primary">Save Student</button>
+    </form>
+</div>
+<footer th:replace="fragments :: footer"></footer>
+</body>
+</html>

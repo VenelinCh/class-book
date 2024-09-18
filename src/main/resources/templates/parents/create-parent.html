@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head"></head>
+<body>
+<header th:replace="fragments :: header"></header>
+<h4>Register the Parent</h4>
+<div class="col-6">
+    <form action="#" th:action="@{/parents/create}" th:object="${parent}" method="post">
+        <div class="form-group">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input class="form-control" type="text" th:field="*{name}" placeholder="Name" id="name">
+                <span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</span>
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last name</label>
+                <input class="form-control" type="text" th:field="*{lastName}"
+                       placeholder="Last name" id="lastName">
+                <span class="text-danger" th:if="${#fields.hasErrors('lastName')}"
+                      th:errors="*{lastName}">Last name Error</span>
+            </div>
+
+            <div class="form-group">
+                <label for="child">Add Child</label>
+                <select class="form-control" th:field="${parent.children}" id="child">
+                    <option th:each="child : ${children}" th:value="${child.id}"
+                            th:text="${child.name} + ' ' + ${child.lastName}"></option>
+                </select>
+            </div>
+
+
+        </div>
+        <button type="submit" class="btn btn-primary">Save Parent</button>
+    </form>
+</div>
+<footer th:replace="fragments :: footer"></footer>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head"></head>
+<body>
+<header th:replace="fragments :: header"></header>
+<h4 th:if="${students.size()>0}" th:text="'Students: ' + ${students.size()}"> </h4>
+<h3 th:unless="${students} and ${students.size()}">There are no students!</h3>
+<table th:if="${students.size()>0}" calss="table table-hover">
+    <th>Id</th>
+    <th>Name</th>
+    <th>Last name</th>
+    <th>Class</th>
+    <th>Edit</th>
+    <th>Delete</th>
+    <tr th:each="student : ${students}" >
+        <td th:text="${student.getId}"></td>
+        <td th:text="${student.getName}"></td>
+        <td th:text="${student.getLastName}"></td>
+        <td th:text="${student.getGradeSignature}"></td>
+        <td><a class="btn btn-info" th:href="@{'/students/edit/'+ ${student.getId} }">Edit</a></td>
+        <td><a class="btn btn-danger" th:href="@{'/students/delete/'+ ${student.getId} }">Delete</a></td>
+
+    </tr>
+
+</table>
+
+<footer th:replace="fragments :: footer"></footer>
+</body>
+</html>
