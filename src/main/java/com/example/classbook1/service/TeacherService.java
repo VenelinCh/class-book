@@ -1,5 +1,6 @@
 package com.example.classbook1.service;
 
+import com.example.classbook1.data.entity.Subject;
 import com.example.classbook1.data.entity.Teacher;
 import com.example.classbook1.dto.CreateTeacherDTO;
 import com.example.classbook1.dto.SchoolDTO;
@@ -16,5 +17,6 @@ public interface TeacherService {
     Teacher updateTeacher(long id, UpdateTeacherDTO updateTeacherDTO);
     void deleteTeacher(long id);
     TeacherDTO getTeacherByname(String name);
-    Set<SchoolDTO> getSchools(TeacherDTO teacher);
+    Set<SchoolDTO> getSchools();
+    Set<Subject> getSubjectsThatCanTeach(TeacherDTO teacher);
 }

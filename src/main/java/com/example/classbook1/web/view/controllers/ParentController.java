@@ -1,22 +1,31 @@
 package com.example.classbook1.web.view.controllers;
 
 
+import com.example.classbook1.data.entity.Mark;
+import com.example.classbook1.data.entity.Role;
+import com.example.classbook1.data.entity.Student;
+import com.example.classbook1.data.entity.User;
 import com.example.classbook1.data.repository.ParentRepository;
-import com.example.classbook1.dto.GradeDTO;
-import com.example.classbook1.dto.ParentDTO;
-import com.example.classbook1.dto.StudentDTO;
+import com.example.classbook1.dto.*;
 import com.example.classbook1.service.GradeService;
 import com.example.classbook1.service.ParentService;
 import com.example.classbook1.service.StudentService;
 import com.example.classbook1.web.view.models.ParentViewModel;
+import com.example.classbook1.web.view.models.TeacherViewModel;
+import com.zaxxer.hikari.util.IsolationLevel;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Controller
@@ -27,7 +36,7 @@ public class ParentController {
     StudentService studentService;
     ModelMapper modelMapper;
     ParentRepository parentRepository;
-    @GetMapping
+    @GetMapping//can be seen by teacher, director, admin, ==> make authority teacher
     public String getParents(Model model){
         final List<ParentViewModel> parents = parentService.getParents()
                 .stream()
@@ -36,7 +45,7 @@ public class ParentController {
         model.addAttribute("parents", parents);
         return "parents/parents";
     }
-    @GetMapping("/create-parent")
+    @GetMapping("/a/create-parent")//can be seen by admin
     public String showCreateParentForm(Model model) {
         model.addAttribute("parent", new ParentViewModel());
         List<StudentDTO> children = studentService.getStudents();
@@ -44,7 +53,7 @@ public class ParentController {
         return "/parents/create-parent";
     }
 
-    @PostMapping("/create")
+    @PostMapping("/create")//admin
     public String createParent(@ModelAttribute("parent") ParentViewModel parent,
                                BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -53,12 +62,12 @@ public class ParentController {
         parentService.create(modelMapper.map(parent, ParentDTO.class));
         return "redirect:/parents";
     }
-    @GetMapping("/delete/{id}")
+    @GetMapping("/a/delete/{id}")//can be seen by admin
     public String deleteTeacher(@PathVariable("id") long id) {
         parentService.deleteParent(id);
         return "redirect:/parents";
     }
-    @GetMapping("/edit/{id}")
+    @GetMapping("/a/edit/{id}")//can be seen by admin
     public String editParent(@PathVariable("id") long id, Model model){
         ParentDTO parent = parentService.getParent(id);
         model.addAttribute("parent", parent);
@@ -67,7 +76,83 @@ public class ParentController {
         return "/parents/update-parent";
 
     }
-    @PostMapping("/update/{id}")
+//    @GetMapping("my-profile")
+//    public String myProfile(@AuthenticationPrincipal User user, Model model){
+//        long id = user.getId();
+//        ParentDTO parent = parentService.getParent(id);
+//        model.addAttribute("parent", parent);
+//        List<StudentDTO> children = studentService.getStudents();
+//        model.addAttribute("children",children);
+//        return "/parents/update-parent";
+//
+//    }
+@GetMapping("/my-profile")//can be seen by parent, admin
+public String myProfile(@AuthenticationPrincipal User user, Model model){
+    try {
+        long id = user.getId();
+        ParentDTO parent = parentService.getParentByUserId(id);
+        if(user.getId()==parent.getUser().getId()){
+            model.addAttribute("parent", parent);
+            Set<StudentDTO> children = parent.getChildren();
+            model.addAttribute("children",children);
+
+        }
+    }catch(Exception e){
+        System.out.println(e.getStackTrace());
+    }
+
+
+    return "/parents/my-profile";
+
+}
+//    @GetMapping("/marks/{id}")
+//    @ResponseBody
+//    public String findMarks(@PathVariable("id")long id, Model model){
+//
+//        String strMark="";
+//        try {
+//            List<Mark> marks = studentService.findMarksByStudentId(id);
+//            for (Mark m: marks){
+//                String s = "" + m.getMark() +",";
+//                strMark = strMark + ", " + m.getMark();
+//            }
+//        }catch (StackOverflowError e){//StackOverflow
+//            System.out.println(e.getStackTrace());
+//
+//        }
+//        return strMark;
+//    }
+@GetMapping("/marks/{id}")//can be seen by parent, admin
+//    @ResponseBody
+    public String findMarks(@PathVariable("id")long id,@AuthenticationPrincipal User user, Model model){
+        try {
+            long idParent = user.getId();
+            ParentDTO parent = parentService.getParentByUserId(idParent);
+            if(user.getId()!=parent.getUser().getId()){
+                return "redirect:/parents";
+            }
+            StudentDTO student = new StudentDTO();
+            Set<StudentDTO> students = parent.getChildren();
+            for(StudentDTO s:students){
+                if(s.getId() == id){
+                    student= studentService.getStudent(id);
+                    model.addAttribute("student",student);
+                    List<Mark> marks = studentService.findMarksByStudentId(id);
+                    model.addAttribute("marks",marks);
+                }
+            }
+           // StudentDTO student = studentService.getStudent(id);
+
+
+        }catch (IllegalArgumentException e){
+            System.out.println(e);
+        }catch (StackOverflowError e){//StackOverflow
+            System.out.println(e.getStackTrace());
+        }
+        return "/students/student";
+    }
+
+    @PostMapping("/update/{id}")//can be seen by admin
     public String updateParent(@PathVariable("id") long id, @ModelAttribute("parent") ParentViewModel parent,
                                           BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -76,11 +161,29 @@ public class ParentController {
         parentService.updateParent(id, modelMapper.map(parent, ParentDTO.class));
         return "redirect:/parents";
     }
-    @GetMapping("/parent/{id}")
+    @GetMapping("/a/remove-kid/{id}/{idKid}")//dosnt work //can be seen by admin
+    public String removeKid(@PathVariable("id") long id, @PathVariable("idKid") long idKid) {
+        ParentDTO parent = parentService.getParent(id);
+        Set<StudentDTO> kids = parent.getChildren();
+        StudentDTO temp = new StudentDTO();
+        for(StudentDTO kid : kids){
+            if(kid.getId()==idKid){
+                temp = kid;
+            }
+        }
+        kids.remove(temp);
+        parent.setChildren(kids);
+        parentService.updateParent(id, modelMapper.map(parent, ParentDTO.class));
+        return "redirect:/parents/{id}";
+    }
+    private ParentViewModel convertToViewmodel(ParentDTO parentDTO){
+        return modelMapper.map(parentDTO, ParentViewModel.class);
+    }
+    @GetMapping("/{id}")//can be seen by teacher, admin
     public String viewParent(@PathVariable("id") long id, Model model) {
         ParentDTO parent=parentService.getParent(id);
         model.addAttribute("parent", parent);
-        List<StudentDTO> children = studentService.getStudents();
+        Set<StudentDTO> children = parent.getChildren();
         model.addAttribute("children",children);
         return "/parents/parent";
     }

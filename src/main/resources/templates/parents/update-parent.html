@@ -3,9 +3,9 @@
 <head th:replace="fragments :: head"></head>
 <body>
 <header th:replace="fragments :: header"></header>
-<h4>Edit Director</h4>
+<h4>Edit parent</h4>
 <div class="col-6">
-    <form action="#" th:action="@{/directors/update/{id} (id=${director.id})}" th:object="${director}" method="post">
+    <form action="#" th:action="@{/parents/update/{id} (id=${parent.id})}" th:object="${parent}" method="post">
         <div class="form-group">
             <div class="form-group">
                 <label for="name">Name</label>
@@ -20,18 +20,18 @@
                       th:errors="*{lastName}">Last name Error</span>
             </div>
 
-            <div class="form-group">
-                <label for="school">School</label>
-                <select class="form-control" th:field="${director.school}" id="school">
-                    <!--                    <option value="">Select grade</option>-->
-                    <option th:each="school : ${schools}" th:value="${school.id}"
-                            th:text="${school.name}"></option>
-                </select>
-            </div>
+<!--            <div class="form-group">-->
+<!--                <label for="grade">Grade</label>-->
+<!--                <select class="form-control" th:field="${student.grade}" id="grade">-->
+<!--&lt;!&ndash;                    <option value="">Select grade</option>&ndash;&gt;-->
+<!--                    <option th:each="grade : ${grades}" th:value="${grade.id}"-->
+<!--                            th:text="${grade.number} + ' ' + ${grade.label}"></option>-->
+<!--                </select>-->
+<!--            </div>-->
 
 
         </div>
-        <button type="submit" class="btn btn-primary">Save Director</button>
+        <button type="submit" class="btn btn-primary">Save Parent</button>
     </form>
 </div>
 <footer th:replace="fragments :: footer"></footer>

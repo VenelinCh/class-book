@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head"></head>
+<body>
+<header th:replace="fragments :: header"></header>
+<!--<h4 th:text="${parent.name} + ' '+ ${parent.lastName} "></h4>-->
+<h3 th:unless="${parent}">There are no parents!</h3>
+<div th:if="${parent != null}">
+    <h4 th:text="${parent.name} + ' ' + ${parent.lastName}"></h4>
+    <table th:if="${children != null && children.size()>0}" calss="table table-hover">
+        <th>Id</th>
+        <th>Name</th>
+        <th>Last name</th>
+        <th>Class</th>
+
+        <tr th:each="child : ${children}" >
+            <td th:text="${child.getId}"></td>
+            <td th:text="${child.getName}"></td>
+            <td th:text="${child.getLastName}"></td>
+            <td th:text="${child.getGrade.getNumber} + ${child.getGrade.getLabel}"></td>
+
+
+        </tr>
+
+    </table>
+</div>
+
+
+
+
+<footer th:replace="fragments :: footer"></footer>
+</body>
+</html>

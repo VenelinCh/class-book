@@ -14,6 +14,6 @@ public class DirectorDTO {
     private long id;
     private String name;
     private String lastName;
-    private School school;
+    private SchoolDTO school;
     private LocalDate directorSince;
 }

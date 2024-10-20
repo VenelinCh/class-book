@@ -9,15 +9,18 @@
     <th>Id</th>
     <th>Name</th>
     <th>Last name</th>
-    <th>Class</th>
+    <th>Children</th>
     <th>Edit</th>
     <th>Delete</th>
+    <th>Profile</th>
     <tr th:each="parent : ${parents}" >
         <td th:text="${parent.getId}"></td>
         <td th:text="${parent.getName}"></td>
         <td th:text="${parent.getLastName}"></td>
+        <td th:text="${parent.getLastName}"></td>
         <td><a class="btn btn-info" th:href="@{'/parents/edit/'+ ${parent.getId} }">Edit</a></td>
         <td><a class="btn btn-danger" th:href="@{'/parents/delete/'+ ${parent.getId} }">Delete</a></td>
+        <td><a class="btn btn-info" th:href="@{'/parents/'+ ${parent.getId} }">View</a></td>
 
     </tr>
 

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head"></head>
+<body>
+<header th:replace="fragments :: header"></header>
+<h4 th:if="${student != null}" th:text="${student.name} + ' '+ ${student.lastName} "></h4>
+<!--<h3 th:unless="${students} and ${students.size()}">There are no students!</h3>-->
+<table th:if="${marks != null && marks.size()>0}" calss="table table-hover">
+    <th>Id</th>
+    <th>Mark</th>
+    <th>Teacher</th>
+    <th>Subject</th>
+
+    <tr th:each="mark : ${marks}" >
+        <td th:text="${mark.getId}"></td>
+        <td th:text="${mark.mark}"></td>
+        <td th:text="${mark.getTeacherStr()}"></td>
+        <td th:text="${mark.getSubjectStr()}"></td>
+    </tr>
+
+</table>
+<footer th:replace="fragments :: footer"></footer>
+</body>
+</html>

@@ -16,9 +16,9 @@ public class StudentViewModel {
     private boolean expelled;
 
 
-    public String getGradeSignature(){
+    public String getGrade(){
 
-        String signature = this.grade.getNumber() + " " + this.grade.getLabel();
-        return signature;
+        String grade = this.grade.getNumber() + " " + this.grade.getLabel();
+        return grade;
     }
 }

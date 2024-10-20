@@ -1,5 +1,6 @@
 package com.example.classbook1.service;
 
+import com.example.classbook1.data.entity.Mark;
 import com.example.classbook1.data.entity.Student;
 import com.example.classbook1.dto.CreateStudentDTO;
 import com.example.classbook1.dto.StudentDTO;
@@ -15,4 +16,5 @@ public interface StudentService {
     Student updateStudent(long id, UpdateStudentDTO updateStudentDTO);
     void deleteStudent(long id);
     StudentDTO getStudentByname(String name);
+    List<Mark> findMarksByStudentId(long id);
 }

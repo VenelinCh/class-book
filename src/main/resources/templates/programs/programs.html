@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head"></head>
+<body>
+<header th:replace="fragments :: header"></header>
+<h4 th:if="${programs.size()>0}" th:text="'programs: ' + ${programs.size()}"> </h4>
+<h3 th:unless="${programs} and ${programs.size()}">There are no programs!</h3>
+<table th:if="${programs.size()>0}" calss="table table-hover">
+    <th>Id</th>
+    <th>Day of the week</th>
+    <th>Hour</th>
+    <th>Classroom</th>
+    <th>Class</th>
+    <th>Teacher</th>
+
+    <th>Edit</th>
+    <th>Delete</th>
+    <tr th:each="program : ${programs}" >
+        <td th:text="${program.getId}"></td>
+        <td th:text="${program.dayOfWeek}"></td>
+        <td th:text="${program.hour}"></td>
+        <td th:text="${program.classroom}"></td>
+        <td th:text="${program.grade}"></td>
+        <td th:text="${program.teacher}"></td>
+
+        <td><a class="btn btn-info" th:href="@{'/programs/edit/'+ ${program.getId} }">Edit</a></td>
+        <td><a class="btn btn-danger" th:href="@{'/programs/delete/'+ ${program.getId} }">Delete</a></td>
+
+    </tr>
+
+</table>
+
+<footer th:replace="fragments :: footer"></footer>
+</body>
+</html>

@@ -1,5 +1,6 @@
 package com.example.classbook1.web.view.models;
 
+import com.example.classbook1.data.entity.Subject;
 import com.example.classbook1.dto.SchoolDTO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,4 +16,8 @@ public class TeacherViewModel {
     private String name;
     private String lastName;
     private Set<SchoolDTO> schools;
+    private Set<Subject> subjectsThatCanTeach;
+    //private SchoolDTO school;
+    private String subjectsStr;
+
 }

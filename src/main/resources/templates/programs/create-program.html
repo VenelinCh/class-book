@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head"></head>
+<body>
+<header th:replace="fragments :: header"></header>
+<h4>Register the Program</h4>
+<div class="col-6">
+    <form action="#" th:action="@{/programs/create}" th:object="${program}" method="post">
+        <div class="form-group">
+            <div class="form-group">
+                <label for="hour">Hour</label>
+                <input class="form-control" type="time" th:field="*{hour}" placeholder="Hour" id="hour">
+                <span class="text-danger" th:if="${#fields.hasErrors('hour')}" th:errors="*{hour}">Hour Error</span>
+            </div>
+            <div class="form-group">
+                <label for="dayOfWeek">Number of the day of week</label>
+                <input class="form-control" type="text" th:field="*{dayOfWeek}"
+                       placeholder="DayOfWeek" id="dayOfWeek">
+                <span class="text-danger" th:if="${#fields.hasErrors('dayOfWeek')}"
+                      th:errors="*{dayOfWeek}">DayOfWeek</span>
+            </div>
+
+            <div class="form-group">
+                <label for="grade">Grade</label>
+                <select class="form-control" th:field="${program.grade}" id="grade">
+<!--                    <option value="">Select grade</option>-->
+                    <option th:each="grade : ${grades}" th:value="${grade.id}"
+                            th:text="${grade.number} + ' ' + ${grade.label}"></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="grade">Teacher</label>
+                <select class="form-control" th:field="${program.teacher}" id="teacher">
+                    <!--                    <option value="">Select grade</option>-->
+                    <option th:each="teacher : ${teachers}" th:value="${teacher.id}"
+                            th:text="${teacher.name} + ' ' + ${teacher.lastName}"></option>
+                </select>
+            </div>
+
+
+        </div>
+        <button type="submit" class="btn btn-primary">Save Program</button>
+    </form>
+</div>
+<footer th:replace="fragments :: footer"></footer>
+</body>
+</html>

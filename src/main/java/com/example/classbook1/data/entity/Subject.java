@@ -3,6 +3,7 @@ package com.example.classbook1.data.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,9 +14,9 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @Entity
-public class Teacher extends Person{
-    @ManyToMany(fetch = FetchType.LAZY)
-    private Set<School> schools;
-    @ManyToMany
-    private Set<Subject> subjectsThatCanTeach;
+@Table(name="subject")
+public class Subject extends BaseEntity{
+    String subjectName;
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "subjectsThatCanTeach")
+    Set<Teacher> teachers;
 }

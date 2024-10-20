@@ -1,5 +1,6 @@
 package com.example.classbook1.service.implementations;
 
+import com.example.classbook1.data.entity.Mark;
 import com.example.classbook1.data.entity.Student;
 import com.example.classbook1.data.repository.StudentRepository;
 import com.example.classbook1.dto.CreateStudentDTO;
@@ -46,5 +47,10 @@ public class StudentServiceImp implements StudentService {
     }
     public StudentDTO getStudentByname(String name){
         return modelMapper.map(studentRepository.findStudentByName(name), StudentDTO.class);
+    }
+
+    @Override
+    public List<Mark> findMarksByStudentId(long id) {
+        return studentRepository.findMarkByStudentId(id);
     }
 }

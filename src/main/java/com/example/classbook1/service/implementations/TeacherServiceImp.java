@@ -1,5 +1,6 @@
 package com.example.classbook1.service.implementations;
 
+import com.example.classbook1.data.entity.Subject;
 import com.example.classbook1.data.entity.Teacher;
 import com.example.classbook1.data.repository.TeacherRepository;
 import com.example.classbook1.dto.CreateTeacherDTO;
@@ -50,8 +51,11 @@ public class TeacherServiceImp implements TeacherService {
         return modelMapper.map(teacherRepository.findTeacherByName(name), TeacherDTO.class);
     }
 
-    public Set<SchoolDTO> getSchools(TeacherDTO teacher){
+    public Set<SchoolDTO> getSchools(){
         //TeacherDTO teacher = getTeacher(id);
-        return teacher.getSchools();
+        return this.getSchools();
+    }
+    public Set<Subject> getSubjectsThatCanTeach(TeacherDTO teacherDTO){
+        return teacherDTO.getSubjectsThatCanTeach();
     }
 }

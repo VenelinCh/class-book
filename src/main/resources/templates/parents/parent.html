@@ -4,6 +4,7 @@
 <body>
 <header th:replace="fragments :: header"></header>
 <h4 th:text="${parent.name} + ' '+ ${parent.lastName} "></h4>
+<h4>Children</h4>
 <!--<h3 th:unless="${parents} and ${parents.size()}">There are no parents!</h3>-->
 <table th:if="${children.size()>0}" calss="table table-hover">
     <th>Id</th>
@@ -11,18 +12,18 @@
     <th>Last name</th>
     <th>Class</th>
     <th>Edit</th>
-    <th>Delete</th>
+    <th>Remove</th>
     <tr th:each="child : ${children}" >
         <td th:text="${child.getId}"></td>
         <td th:text="${child.getName}"></td>
         <td th:text="${child.getLastName}"></td>
+        <td th:text="${child.getGrade.getNumber} + ${child.getGrade.getLabel}"></td>
         <td><a class="btn btn-info" th:href="@{'/students/edit/'+ ${child.getId} }">Edit</a></td>
-        <td><a class="btn btn-danger" th:href="@{'/students/delete/'+ ${child.getId} }">Delete</a></td>
+        <td><a class="btn btn-info" th:href="@{'/parents/remove-kid/'+ ${parent.getId} + '/' + ${child.getId} }">Remove</a></td>
 
     </tr>
 
 </table>
-
 <footer th:replace="fragments :: footer"></footer>
 </body>
 </html>

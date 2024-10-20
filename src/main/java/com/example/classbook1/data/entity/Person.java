@@ -1,9 +1,6 @@
 package com.example.classbook1.data.entity;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,5 +17,6 @@ public class Person {
     private long id;
     private String name;
     private String lastName;
-//    private User user;
+    @OneToOne//(mappedBy = "person")
+    private User user;
 }
