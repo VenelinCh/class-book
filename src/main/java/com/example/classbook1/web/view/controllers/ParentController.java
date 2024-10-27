@@ -2,28 +2,20 @@ package com.example.classbook1.web.view.controllers;
 
 
 import com.example.classbook1.data.entity.Mark;
-import com.example.classbook1.data.entity.Role;
-import com.example.classbook1.data.entity.Student;
 import com.example.classbook1.data.entity.User;
 import com.example.classbook1.data.repository.ParentRepository;
 import com.example.classbook1.dto.*;
-import com.example.classbook1.service.GradeService;
 import com.example.classbook1.service.ParentService;
 import com.example.classbook1.service.StudentService;
 import com.example.classbook1.web.view.models.ParentViewModel;
-import com.example.classbook1.web.view.models.TeacherViewModel;
-import com.zaxxer.hikari.util.IsolationLevel;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -36,7 +28,7 @@ public class ParentController {
     StudentService studentService;
     ModelMapper modelMapper;
     ParentRepository parentRepository;
-    @GetMapping//can be seen by teacher, director, admin, ==> make authority teacher
+    @GetMapping
     public String getParents(Model model){
         final List<ParentViewModel> parents = parentService.getParents()
                 .stream()
@@ -45,7 +37,7 @@ public class ParentController {
         model.addAttribute("parents", parents);
         return "parents/parents";
     }
-    @GetMapping("/a/create-parent")//can be seen by admin
+    @GetMapping("/a/create-parent")
     public String showCreateParentForm(Model model) {
         model.addAttribute("parent", new ParentViewModel());
         List<StudentDTO> children = studentService.getStudents();
@@ -53,7 +45,7 @@ public class ParentController {
         return "/parents/create-parent";
     }
 
-    @PostMapping("/create")//admin
+    @PostMapping("/a/create")//admin
     public String createParent(@ModelAttribute("parent") ParentViewModel parent,
                                BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -76,17 +68,8 @@ public class ParentController {
         return "/parents/update-parent";
 
     }
-//    @GetMapping("my-profile")
-//    public String myProfile(@AuthenticationPrincipal User user, Model model){
-//        long id = user.getId();
-//        ParentDTO parent = parentService.getParent(id);
-//        model.addAttribute("parent", parent);
-//        List<StudentDTO> children = studentService.getStudents();
-//        model.addAttribute("children",children);
-//        return "/parents/update-parent";
-//
-//    }
-@GetMapping("/my-profile")//can be seen by parent, admin
+
+@GetMapping("/my-profile")
 public String myProfile(@AuthenticationPrincipal User user, Model model){
     try {
         long id = user.getId();
@@ -100,10 +83,7 @@ public String myProfile(@AuthenticationPrincipal User user, Model model){
     }catch(Exception e){
         System.out.println(e.getStackTrace());
     }
-
-
     return "/parents/my-profile";
-
 }
 //    @GetMapping("/marks/{id}")
 //    @ResponseBody
@@ -152,7 +132,7 @@ public String myProfile(@AuthenticationPrincipal User user, Model model){
         return "/students/student";
     }
 
-    @PostMapping("/update/{id}")//can be seen by admin
+    @PostMapping("/update/{id}")
     public String updateParent(@PathVariable("id") long id, @ModelAttribute("parent") ParentViewModel parent,
                                           BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -161,7 +141,7 @@ public String myProfile(@AuthenticationPrincipal User user, Model model){
         parentService.updateParent(id, modelMapper.map(parent, ParentDTO.class));
         return "redirect:/parents";
     }
-    @GetMapping("/a/remove-kid/{id}/{idKid}")//dosnt work //can be seen by admin
+    @GetMapping("/a/remove-kid/{id}/{idKid}")//dosnt work
     public String removeKid(@PathVariable("id") long id, @PathVariable("idKid") long idKid) {
         ParentDTO parent = parentService.getParent(id);
         Set<StudentDTO> kids = parent.getChildren();

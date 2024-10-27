@@ -10,11 +10,11 @@ import com.example.classbook1.dto.UpdateStudentDTO;
 import java.util.List;
 
 public interface StudentService {
-    List<StudentDTO> getStudents();
-    Student create(CreateStudentDTO createStudentDTO);
-    StudentDTO getStudent(long id);
-    Student updateStudent(long id, UpdateStudentDTO updateStudentDTO);
-    void deleteStudent(long id);
-    StudentDTO getStudentByname(String name);
-    List<Mark> findMarksByStudentId(long id);
+    public List<StudentDTO> getStudents();
+    public Student create(CreateStudentDTO createStudentDTO);
+    public StudentDTO getStudent(long id);
+    public Student updateStudent(long id, UpdateStudentDTO updateStudentDTO);
+    public void deleteStudent(long id);
+    public StudentDTO getStudentByname(String name);
+    public List<Mark> findMarksByStudentId(long id);
 }

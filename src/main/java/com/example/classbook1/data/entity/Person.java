@@ -17,6 +17,6 @@ public class Person {
     private long id;
     private String name;
     private String lastName;
-    @OneToOne//(mappedBy = "person")
+    @OneToOne
     private User user;
 }

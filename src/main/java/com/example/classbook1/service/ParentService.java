@@ -5,12 +5,12 @@ import com.example.classbook1.dto.ParentDTO;
 import java.util.List;
 
 public interface ParentService {
-    List<ParentDTO> getParents();
-    Parent create(ParentDTO parent);
-    ParentDTO getParent(long id);
-    Parent updateParent(long id, ParentDTO parent);
-    void deleteParent(long id);
-    ParentDTO getParentByName(String name);
-    ParentDTO getParentByNameAndLastName(String name,String lastName);
-    ParentDTO getParentByUserId(long id);
+    public List<ParentDTO> getParents();
+    public Parent create(ParentDTO parent);
+    public ParentDTO getParent(long id);
+    public Parent updateParent(long id, ParentDTO parent);
+    public void deleteParent(long id);
+    public ParentDTO getParentByName(String name);
+    public ParentDTO getParentByNameAndLastName(String name,String lastName);
+    public ParentDTO getParentByUserId(long id);
 }

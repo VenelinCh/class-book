@@ -17,8 +17,8 @@
         <td th:text="${director.getName} + ' '+ ${director.getLastName}"></td>
         <td th:text="${director.getSchoolName}"></td>
         <td th:text="${director.directorSince}"></td>
-        <td><a class="btn btn-info" th:href="@{'/directors/edit/'+ ${director.getId} }">Edit</a></td>
-        <td><a class="btn btn-danger" th:href="@{'/directors/delete/'+ ${director.getId} }">Delete</a></td>
+        <td><a class="btn btn-info" th:href="@{'/directors/a/edit/'+ ${director.getId} }">Edit</a></td>
+        <td><a class="btn btn-danger" th:href="@{'/directors/a/delete/'+ ${director.getId} }">Delete</a></td>
 
     </tr>
 

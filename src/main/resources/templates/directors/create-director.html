@@ -5,7 +5,7 @@
 <header th:replace="fragments :: header"></header>
 <h4>Register the Director</h4>
 <div class="col-6">
-    <form action="#" th:action="@{/directors/create}" th:object="${director}" method="post">
+    <form action="#" th:action="@{/directors/a/create}" th:object="${director}" method="post">
         <div class="form-group">
             <div class="form-group">
                 <label for="name">Name</label>
@@ -23,7 +23,6 @@
             <div class="form-group">
                 <label for="school">Schools</label>
                 <select class="form-control" th:field="${director.school}" id="school">
-<!--                    <option value="">Select grade</option>-->
                     <option th:each="school : ${schools}" th:value="${school.id}"
                             th:text="${school.name}"></option>
                 </select>

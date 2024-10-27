@@ -21,14 +21,7 @@ public class Classbook1Application {
 
 	public static void main(String[] args) {
 		SpringApplication.run(Classbook1Application.class, args);
-//		Example example = null;
-//		Grade grade = new Grade();
-//		grade.setGrade(7);
-//		grade.setLabel("a");
-//		StudentViewModel studentViewModel = new StudentViewModel();
-//		studentViewModel.setName("Example1");
-//		studentViewModel.setGrade(grade);
-//		example.createStudent(studentViewModel);
+
 		}
 
 }

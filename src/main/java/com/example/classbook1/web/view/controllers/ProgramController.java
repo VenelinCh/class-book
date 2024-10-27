@@ -66,7 +66,6 @@ public class ProgramController {
             return "/programs/create-program";
         }
         programService.create(modelMapper.map(program, Program.class));
-        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         return "redirect:/programs";
     }
     @GetMapping("/delete/{id}")

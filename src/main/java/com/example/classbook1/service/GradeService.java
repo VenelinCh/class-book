@@ -8,10 +8,10 @@ import com.example.classbook1.dto.UpdateGradeDTO;
 import java.util.List;
 
 public interface GradeService {
-    List<GradeDTO> getGrades();
-    Grade create(CreateGradeDTO createGradeDTO);
-    GradeDTO getGrade(long id);
-    Grade updateGrade(long id, UpdateGradeDTO updateGradeDTO);
-    void deleteGrade(long id);
-    GradeDTO getGradeByNumber(int number);
+    public List<GradeDTO> getGrades();
+    public Grade create(CreateGradeDTO createGradeDTO);
+    public GradeDTO getGrade(long id);
+    public Grade updateGrade(long id, UpdateGradeDTO updateGradeDTO);
+    public void deleteGrade(long id);
+    public GradeDTO getGradeByNumber(int number);
 }

@@ -33,7 +33,7 @@ public class DirectorController {
         model.addAttribute("directors", directors);
         return "/directors/directors";
     }
-    @GetMapping("/create-director")
+    @GetMapping("/a/create-director")
     public String showCreateSchoolForm(Model model) {
         model.addAttribute("director", new DirectorViewModel());
         List<SchoolDTO> schools = schoolService.getSchools();
@@ -43,7 +43,7 @@ public class DirectorController {
     }
 
     //ne raboti
-    @PostMapping("/create")
+    @PostMapping("/a/create")
     public String createDirector(@ModelAttribute("director") DirectorViewModel director,
                                BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -54,12 +54,12 @@ public class DirectorController {
         directorService.create(modelMapper.map(director, DirectorDTO.class));
         return "redirect:/directors";
     }
-    @GetMapping("/delete/{id}")
+    @GetMapping("/a/delete/{id}")
     public String deleteDirector(@PathVariable("id") long id) {
         directorService.deleteDirector(id);
         return "redirect:/directors";
     }
-    @GetMapping("/edit/{id}")
+    @GetMapping("/a/edit/{id}")
     public String editDirector(@PathVariable("id") long id, Model model){
         DirectorDTO director = directorService.getDirector(id);
         model.addAttribute("director", director);
@@ -68,7 +68,7 @@ public class DirectorController {
         return "/directors/update-director";
 
     }
-    @PostMapping("/update/{id}")
+    @PostMapping("/a/update/{id}")
     public String updateDirector(@PathVariable("id") long id, @ModelAttribute("student") DirectorViewModel director,
                                 BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {

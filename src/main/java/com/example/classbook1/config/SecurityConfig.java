@@ -32,8 +32,11 @@ public class SecurityConfig {
                     registry.requestMatchers("/parents/marks/**").hasAuthority("PARENT");
                     registry.requestMatchers("/parents/marks/**").hasAuthority("PARENT");
                     registry.requestMatchers("/parents/a/**").hasAuthority("ADMIN");
+                    registry.requestMatchers("/directors/a/**").hasAuthority("ADMIN");
+                    registry.requestMatchers("/directors").permitAll();
+                    registry.requestMatchers("/students").hasAuthority("TEACHER");
+                    registry.requestMatchers("/students/a/**").hasAuthority("ADMIN");
                     //registry.requestMatchers("/parents/{id}").hasAuthority("PARENT");
-
 
 //                    registry.requestMatchers("/directors/**").hasAuthority("DIRECTOR");
 //                    registry.requestMatchers("/teachers/**").hasAuthority("TEACHER");

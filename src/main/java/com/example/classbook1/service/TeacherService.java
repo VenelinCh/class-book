@@ -11,12 +11,12 @@ import java.util.List;
 import java.util.Set;
 
 public interface TeacherService {
-    List<TeacherDTO> getTeachers();
-    Teacher create(CreateTeacherDTO createTeacherDTO);
-    TeacherDTO getTeacher(long id);
-    Teacher updateTeacher(long id, UpdateTeacherDTO updateTeacherDTO);
-    void deleteTeacher(long id);
-    TeacherDTO getTeacherByname(String name);
-    Set<SchoolDTO> getSchools();
-    Set<Subject> getSubjectsThatCanTeach(TeacherDTO teacher);
+    public List<TeacherDTO> getTeachers();
+    public Teacher create(CreateTeacherDTO createTeacherDTO);
+    public TeacherDTO getTeacher(long id);
+    public Teacher updateTeacher(long id, UpdateTeacherDTO updateTeacherDTO);
+    public void deleteTeacher(long id);
+    public TeacherDTO getTeacherByname(String name);
+    public Set<SchoolDTO> getSchools();
+    public Set<Subject> getSubjectsThatCanTeach(TeacherDTO teacher);
 }

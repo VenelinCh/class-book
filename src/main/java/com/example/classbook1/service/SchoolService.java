@@ -8,13 +8,13 @@ import com.example.classbook1.dto.UpdateSchoolDTO;
 import java.util.List;
 
 public interface SchoolService {
-    List<SchoolDTO> getSchools();
-    School create(CreateSchoolDTO createSchoolDTO);
-    SchoolDTO getSchool(long id);
-    School updateSchool(long id, UpdateSchoolDTO updateSchoolDTO);
-    void deleteSchool(long id);
-    School disableSchool(long id);
-    SchoolDTO getSchoolByname(String name);
+    public List<SchoolDTO> getSchools();
+    public School create(CreateSchoolDTO createSchoolDTO);
+    public SchoolDTO getSchool(long id);
+    public School updateSchool(long id, UpdateSchoolDTO updateSchoolDTO);
+    public void deleteSchool(long id);
+    public School disableSchool(long id);
+    public SchoolDTO getSchoolByname(String name);
 
 
 

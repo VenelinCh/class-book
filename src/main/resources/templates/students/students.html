@@ -17,8 +17,8 @@
         <td th:text="${student.getName}"></td>
         <td th:text="${student.getLastName}"></td>
         <td th:text="${student.getGradeSignature}"></td>
-        <td><a class="btn btn-info" th:href="@{'/students/edit/'+ ${student.getId} }">Edit</a></td>
-        <td><a class="btn btn-danger" th:href="@{'/students/delete/'+ ${student.getId} }">Delete</a></td>
+        <td><a class="btn btn-info" th:href="@{'/students/a/edit/'+ ${student.getId} }">Edit</a></td>
+        <td><a class="btn btn-danger" th:href="@{'/students/a/delete/'+ ${student.getId} }">Delete</a></td>
 
     </tr>
 

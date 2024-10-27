@@ -4,6 +4,7 @@ import com.example.classbook1.data.entity.School;
 import com.example.classbook1.data.repository.SchoolRepository;
 import com.example.classbook1.dto.CreateSchoolDTO;
 import com.example.classbook1.dto.SchoolDTO;
+import com.example.classbook1.dto.UpdateSchoolDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,7 +19,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class SchoolServiceImpTest {
@@ -77,4 +78,49 @@ public class SchoolServiceImpTest {
         SchoolDTO foundSchool = schoolService.getSchool(1L);
         assertEquals(schoolDTO, foundSchool);
     }
+    @Test
+    void testUpdateSchool() {
+        long id = 1L;
+        UpdateSchoolDTO updateSchoolDTO = new UpdateSchoolDTO();
+        updateSchoolDTO.setName("Updated School");
+
+        School school = new School();
+        school.setId(id);
+        school.setName("Updated School");
+
+        when(modelMapper.map(updateSchoolDTO, School.class)).thenReturn(school);
+        when(schoolRepository.save(school)).thenReturn(school);
+
+        School updatedSchool = schoolService.updateSchool(id, updateSchoolDTO);
+        assertEquals(school, updatedSchool);
+    }
+    @Test
+    void testDeleteSchool() {
+        long id = 1L;
+
+        doNothing().when(schoolRepository).deleteById(id);
+
+        schoolService.deleteSchool(id);
+        verify(schoolRepository, times(1)).deleteById(id);
+    }
+    @Test
+    void testGetSchoolByName() {
+        String name = "Test School";
+
+        School school = new School();
+        school.setId(1L);
+        school.setName(name);
+
+        SchoolDTO schoolDTO = new SchoolDTO();
+        schoolDTO.setId(1L);
+        schoolDTO.setName(name);
+
+        when(schoolRepository.findSchoolByName(name)).thenReturn(school);
+        when(modelMapper.map(school, SchoolDTO.class)).thenReturn(schoolDTO);
+
+        SchoolDTO foundSchool = schoolService.getSchoolByname(name);
+        assertEquals(schoolDTO, foundSchool);
+    }
+
+
 }

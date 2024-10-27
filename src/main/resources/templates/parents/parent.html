@@ -18,8 +18,8 @@
         <td th:text="${child.getName}"></td>
         <td th:text="${child.getLastName}"></td>
         <td th:text="${child.getGrade.getNumber} + ${child.getGrade.getLabel}"></td>
-        <td><a class="btn btn-info" th:href="@{'/students/edit/'+ ${child.getId} }">Edit</a></td>
-        <td><a class="btn btn-info" th:href="@{'/parents/remove-kid/'+ ${parent.getId} + '/' + ${child.getId} }">Remove</a></td>
+        <td><a class="btn btn-info" th:href="@{'/students/a/edit/'+ ${child.getId} }">Edit</a></td>
+        <td><a class="btn btn-info" th:href="@{'/parents/a/remove-kid/'+ ${parent.getId} + '/' + ${child.getId} }">Remove</a></td>
 
     </tr>
 

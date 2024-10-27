@@ -30,9 +30,7 @@ public class StudentController {
     GradeService gradeService;
     ModelMapper modelMapper;
     StudentRepository studentRepository;
-    /////////////////
 
-    //////////
     @GetMapping
     public String getStudents(Model model){
         final List<StudentViewModel> students = studentService.getStudents()
@@ -40,11 +38,9 @@ public class StudentController {
                 .map(this::convertToViewModel)
                 .collect(Collectors.toList());
         model.addAttribute("students", students);
-//        final List<GradeDTO> grades = gradeService.getGrades();
-//        model.addAttribute("grades", grades);
         return "students/students";
     }
-    @GetMapping("/create-student")
+    @GetMapping("/a/create-student")
     public String showCreateStudentForm(Model model) {
         model.addAttribute("student", new StudentViewModel());
         List<GradeDTO> grades =  gradeService.getGrades();
@@ -52,26 +48,22 @@ public class StudentController {
         return "/students/create-student";
     }
 
-    //ne raboti
-    @PostMapping("/create")
+    @PostMapping("/a/create")
     public String createStudent(@ModelAttribute("student") StudentViewModel student,
                                BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "/students/create-student";
         }
-        ////////////////
-        //System.out.println("======================================" + student.getGrade() + "=============================");
-        //student.setGrade(gade);
-        ///////////////////////
+
         studentService.create(modelMapper.map(student, CreateStudentDTO.class));
         return "redirect:/students";
     }
-    @GetMapping("/delete/{id}")
+    @GetMapping("/a/delete/{id}")
     public String deleteTeacher(@PathVariable("id") long id) {
         studentService.deleteStudent(id);
         return "redirect:/students";
     }
-    @GetMapping("/edit/{id}")
+    @GetMapping("/a/edit/{id}")
     public String editStudent(@PathVariable("id") long id, Model model){
         StudentDTO student = studentService.getStudent(id);
         model.addAttribute("student", student);
@@ -80,7 +72,7 @@ public class StudentController {
         return "/students/update-student";
 
     }
-    @PostMapping("/update/{id}")
+    @PostMapping("/a/update/{id}")
     public String updateStudent(@PathVariable("id") long id, @ModelAttribute("student") StudentViewModel student,
                                           BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {

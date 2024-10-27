@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public interface ProgramService {
-     List<Program> getPrograms();
-     Program create(Program program);
-    Program getProgram(long id);
-    Program updateProgram(long id, Program updated);
-    void deleteProgram(long id);
+    public List<Program> getPrograms();
+    public Program create(Program program);
+    public Program getProgram(long id);
+    public Program updateProgram(long id, Program updated);
+    public void deleteProgram(long id);
 }

@@ -5,7 +5,7 @@
 <header th:replace="fragments :: header"></header>
 <h4>Edit Director</h4>
 <div class="col-6">
-    <form action="#" th:action="@{/directors/update/{id} (id=${director.id})}" th:object="${director}" method="post">
+    <form action="#" th:action="@{/directors/a/update/{id} (id=${director.id})}" th:object="${director}" method="post">
         <div class="form-group">
             <div class="form-group">
                 <label for="name">Name</label>

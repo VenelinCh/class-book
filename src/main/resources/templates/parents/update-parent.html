@@ -5,7 +5,7 @@
 <header th:replace="fragments :: header"></header>
 <h4>Edit parent</h4>
 <div class="col-6">
-    <form action="#" th:action="@{/parents/update/{id} (id=${parent.id})}" th:object="${parent}" method="post">
+    <form action="#" th:action="@{/parents/a/update/{id} (id=${parent.id})}" th:object="${parent}" method="post">
         <div class="form-group">
             <div class="form-group">
                 <label for="name">Name</label>
@@ -19,16 +19,6 @@
                 <span class="text-danger" th:if="${#fields.hasErrors('lastName')}"
                       th:errors="*{lastName}">Last name Error</span>
             </div>
-
-<!--            <div class="form-group">-->
-<!--                <label for="grade">Grade</label>-->
-<!--                <select class="form-control" th:field="${student.grade}" id="grade">-->
-<!--&lt;!&ndash;                    <option value="">Select grade</option>&ndash;&gt;-->
-<!--                    <option th:each="grade : ${grades}" th:value="${grade.id}"-->
-<!--                            th:text="${grade.number} + ' ' + ${grade.label}"></option>-->
-<!--                </select>-->
-<!--            </div>-->
-
 
         </div>
         <button type="submit" class="btn btn-primary">Save Parent</button>
