@@ -1,14 +1,18 @@
 package com.example.classbook1.service.implementations;
 
 import com.example.classbook1.data.entity.Grade;
+import com.example.classbook1.data.entity.User;
 import com.example.classbook1.data.repository.GradeRepository;
 import com.example.classbook1.dto.CreateGradeDTO;
 import com.example.classbook1.dto.GradeDTO;
 import com.example.classbook1.dto.UpdateGradeDTO;
 import com.example.classbook1.service.GradeService;
-import com.example.classbook1.service.GradeService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -49,4 +53,5 @@ public class GradeServiceImp implements GradeService {
     public GradeDTO getGradeByNumber(int number){
         return modelMapper.map(gradeRepository.findGradeByNumber(number), GradeDTO.class);
     }
+
 }

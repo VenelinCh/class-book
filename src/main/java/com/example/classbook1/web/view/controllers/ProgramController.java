@@ -1,7 +1,6 @@
 package com.example.classbook1.web.view.controllers;
 
 
-import com.example.classbook1.config.MyUserDataService;
 import com.example.classbook1.data.entity.Program;
 import com.example.classbook1.data.entity.User;
 import com.example.classbook1.data.repository.ProgramRepository;
@@ -13,7 +12,6 @@ import com.example.classbook1.service.TeacherService;
 import com.example.classbook1.web.view.models.ProgramViewModel;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
