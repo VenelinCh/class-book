@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface StudentRepository extends JpaRepository<Student, Long> {
-    Student findStudentByName(String name);
+    public Student findStudentByName(String name);
     @Query("SELECT m FROM Mark m JOIN m.student s WHERE s.id = :id")
-    List<Mark> findMarkByStudentId(long id);
+    public List<Mark> findMarkByStudentId(long id);
 }

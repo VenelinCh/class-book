@@ -5,7 +5,7 @@ import com.example.classbook1.data.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface GradeRepository extends JpaRepository<Grade, Long> {
-    Grade findGradeByNumber(int number);
+    public Grade findGradeByNumber(int number);
 
 
 }
